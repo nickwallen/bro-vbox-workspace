@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 hosts = [
-  { hostname: "node1", ip: "192.168.66.121", memory: "8192", cpus: 2 }
+  { hostname: "node1", ip: "192.168.66.121", memory: "2048", cpus: 2 }
 ]
 
 Vagrant.configure(2) do |config|
@@ -36,6 +36,9 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "./playbook.yml"
     ansible.sudo = true
     #ansible.inventory_path = "../../inventory/singlenode-vagrant"
-    ansible.extra_vars = { kafka_broker_url: 'node1:9092' }
+    ansible.extra_vars = {
+      kafka_broker_url: "node1:9092",
+      bro_topic: "bro"
+    }
   end
 end
