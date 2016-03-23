@@ -1,0 +1,9 @@
+---
+bro_home: /usr/local/bro
+bro_version: 2.4.1
+bro_daemon_log: /var/log/bro.log
+
+# librdkafka
+librdkafka_version: 0.8.6
+librdkafka_url: https://github.com/edenhill/librdkafka/archive/0.8.6.tar.gz
+librdkafka_home: /usr/local

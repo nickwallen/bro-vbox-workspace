@@ -1,0 +1,23 @@
+---
+- name: Download librdkafka
+  get_url:
+    url: "{{ librdkafka_url }}"
+    dest: "/tmp/librdkafka-{{ librdkafka_version }}.tar.gz"
+
+- name: Extract librdkafka tarball
+  unarchive:
+    src: "/tmp/librdkafka-{{ librdkafka_version }}.tar.gz"
+    dest: /tmp
+    copy: no
+    creates: "/tmp/librdkafka-{{ librdkafka_version }}"
+
+- name: Compile and install librdkafka
+  shell: "{{ item }}"
+  args:
+    chdir: "/tmp/librdkafka-{{ librdkafka_version }}"
+    creates: "{{ librdkafka_home }}/lib/librdkafka.so"
+  with_items:
+    - rm -rf build/
+    - "./configure --prefix={{ librdkafka_home }}"
+    - make
+    - make install

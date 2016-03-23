@@ -2,5 +2,6 @@
 - hosts: all
   sudo: yes
   roles:
-    - role: ansible-hdp-kafka
-    - role: ansible-bro
+    - role: pcap-replay
+    - role: kafka
+    - role: bro
