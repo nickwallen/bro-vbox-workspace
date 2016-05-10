@@ -14,25 +14,3 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
----
-- name: Install prerequisites
-  yum: name={{ item }}
-  with_items:
-    - libselinux-python
-    - cmake
-    - make
-    - gcc
-    - gcc-c++
-    - flex
-    - bison
-    - libpcap
-    - libpcap-devel
-    - openssl-devel
-    - python-devel
-    - swig
-    - zlib-devel
-    - perl
-  register: result
-  until: result.rc == 0
-  retries: 5
-  delay: 10

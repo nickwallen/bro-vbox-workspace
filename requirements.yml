@@ -1,6 +1,0 @@
----
-- name: kafka
-  src: https://github.com/nickwallen/ansible-hdp-kafka
-  
-- name: pcap-replay
-  src: https://github.com/nickwallen/metron-provision-pcap-replay

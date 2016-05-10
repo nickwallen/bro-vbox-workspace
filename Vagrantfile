@@ -19,7 +19,7 @@ Vagrant.configure(2) do |config|
 
     # host settings
     node.vm.hostname = "bro1"
-    node.vm.network "private_network", ip: "192.168.66.121"
+    node.vm.network "private_network", ip: "192.168.55.141"
 
     # vm settings
     node.vm.provider "virtualbox" do |vb|

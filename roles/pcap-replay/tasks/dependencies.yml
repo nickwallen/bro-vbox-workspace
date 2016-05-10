@@ -15,23 +15,18 @@
 #  limitations under the License.
 #
 ---
-- name: Install prerequisites
+- name: Install dependencies
   yum: name={{ item }}
   with_items:
     - libselinux-python
-    - cmake
-    - make
-    - gcc
-    - gcc-c++
-    - flex
-    - bison
+    - "@Development tools"
     - libpcap
     - libpcap-devel
-    - openssl-devel
-    - python-devel
-    - swig
+    - pcre
+    - pcre-devel
+    - zlib
     - zlib-devel
-    - perl
+    - glib2-devel
   register: result
   until: result.rc == 0
   retries: 5

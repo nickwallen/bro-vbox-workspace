@@ -15,24 +15,24 @@
 #  limitations under the License.
 #
 ---
-- name: Install prerequisites
-  yum: name={{ item }}
+- name: Download tcpreplay
+  get_url:
+    url: "https://github.com/appneta/tcpreplay/releases/download/v{{ tcpreplay_version }}/tcpreplay-{{ tcpreplay_version }}.tar.gz"
+    dest: "/tmp/tcpreplay-{{ tcpreplay_version }}.tar.gz"
+
+- name: Extract tcpreplay tarball
+  unarchive:
+    src: "/tmp/tcpreplay-{{ tcpreplay_version }}.tar.gz"
+    dest: /opt
+    copy: no
+    creates: "/opt/tcpreplay-{{ tcpreplay_version }}"
+
+- name: Compile and install tcpreplay
+  shell: "{{ item }}"
+  args:
+    chdir: "/opt/tcpreplay-{{ tcpreplay_version }}"
+    creates: "{{ tcpreplay_prefix }}/bin/tcpreplay"
   with_items:
-    - libselinux-python
-    - cmake
+    - "./configure --prefix={{ tcpreplay_prefix }}"
     - make
-    - gcc
-    - gcc-c++
-    - flex
-    - bison
-    - libpcap
-    - libpcap-devel
-    - openssl-devel
-    - python-devel
-    - swig
-    - zlib-devel
-    - perl
-  register: result
-  until: result.rc == 0
-  retries: 5
-  delay: 10
+    - make install

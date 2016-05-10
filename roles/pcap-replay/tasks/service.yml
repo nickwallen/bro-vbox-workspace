@@ -15,24 +15,8 @@
 #  limitations under the License.
 #
 ---
-- name: Install prerequisites
-  yum: name={{ item }}
-  with_items:
-    - libselinux-python
-    - cmake
-    - make
-    - gcc
-    - gcc-c++
-    - flex
-    - bison
-    - libpcap
-    - libpcap-devel
-    - openssl-devel
-    - python-devel
-    - swig
-    - zlib-devel
-    - perl
-  register: result
-  until: result.rc == 0
-  retries: 5
-  delay: 10
+- name: Create pcap directory
+  file: path={{ pcap_replay_home }} state=directory mode=0755
+
+- name: Install init.d service script
+  template: src=pcap-replay dest=/etc/init.d/pcap-replay mode=0755

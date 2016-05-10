@@ -15,24 +15,6 @@
 #  limitations under the License.
 #
 ---
-- name: Install prerequisites
-  yum: name={{ item }}
-  with_items:
-    - libselinux-python
-    - cmake
-    - make
-    - gcc
-    - gcc-c++
-    - flex
-    - bison
-    - libpcap
-    - libpcap-devel
-    - openssl-devel
-    - python-devel
-    - swig
-    - zlib-devel
-    - perl
-  register: result
-  until: result.rc == 0
-  retries: 5
-  delay: 10
+- include: dependencies.yml
+- include: tcpreplay.yml
+- include: service.yml

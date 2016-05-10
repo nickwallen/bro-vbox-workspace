@@ -3,5 +3,5 @@
   sudo: yes
   roles:
     - role: pcap-replay
-    - role: kafka
+    - role: kafka-broker
     - role: bro

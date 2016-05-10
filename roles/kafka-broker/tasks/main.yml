@@ -15,24 +15,28 @@
 #  limitations under the License.
 #
 ---
-- name: Install prerequisites
-  yum: name={{ item }}
+- name: Retrieve HDP repository definition
+  get_url:
+    url: "{{ hdp_repo_def }}"
+    dest: /etc/yum.repos.d/hdp.repo
+    mode: 0644
+
+- name: Install kafka
+  yum: name={{item}}
   with_items:
     - libselinux-python
-    - cmake
-    - make
-    - gcc
-    - gcc-c++
-    - flex
-    - bison
-    - libpcap
-    - libpcap-devel
-    - openssl-devel
-    - python-devel
-    - swig
-    - zlib-devel
-    - perl
-  register: result
-  until: result.rc == 0
-  retries: 5
-  delay: 10
+    - java-1.8.0-openjdk
+    - kafka
+    - zookeeper-server
+
+- name: Create pid directories
+  file: path={{ item }} state=directory mode=0755
+  with_items:
+    - /var/run/zookeeper
+    - /var/run/kafka
+
+- name: Start zookeeper
+  shell: /usr/hdp/current/zookeeper-server/bin/zookeeper-server start
+
+- name: Start kafka
+  shell: /usr/hdp/current/kafka-broker/bin/kafka start

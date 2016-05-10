@@ -9,6 +9,5 @@ Getting Started
 
 ```
 vagrant install plugin vagrant-hostmanager
-ansible-galaxy install -r requirements.yml
 vagrant up
 ```
